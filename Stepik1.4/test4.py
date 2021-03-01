@@ -27,25 +27,25 @@ size = int(input())
 
 # имитация стека вызова в виде словаря. ключ - ПРОСТРАНСТВО ИМЕН, значения - первое - родительское
 # пространство имен, далее имена переменных
-stack = dict()
+scopes = dict()
 
 
 def get(_namespace, _name):
-    if _name in stack[_namespace]:
+    if _name in scopes[_namespace]:
         return _namespace
-    elif name not in stack[_namespace] and stack[_namespace][0] == "None":
+    elif name not in scopes[_namespace] and scopes[_namespace][0] == "None":
         return "None"
     else:
-        return get(stack[_namespace][0], _name)
+        return get(scopes[_namespace][0], _name)
 
 
-stack["global"] = ["None"]
+scopes["global"] = ["None"]
 
 for i in range(size):
     command, namespace, name = input().split()  # считывание запроса
     if command == "add":
-        stack[namespace].append(name)  # создать ключ - неймспейс в значение добавить переменную
+        scopes[namespace].append(name)  # создать ключ - неймспейс в значение добавить переменную
     elif command == "create":
-        stack[namespace] = [name]
+        scopes[namespace] = [name]
     elif command == "get":
         print(get(namespace, name))
