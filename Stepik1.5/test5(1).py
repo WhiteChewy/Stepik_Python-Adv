@@ -43,11 +43,11 @@ buf.get_current_part() # вернуть [1]
 
 
 class Buffer:
-    buffer = []
     size = 5
 
     def __init__(self):
         self.buffer = []
+
 
     def add(self, *a):
         self.buffer += a
